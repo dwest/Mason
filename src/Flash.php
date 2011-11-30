@@ -28,7 +28,7 @@ class Flash {
     extract($context);
     ob_start();
     include($file);
-    return ob_get_flush();
+    return ob_get_clean();
   }
 }
 
