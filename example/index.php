@@ -1,15 +1,8 @@
-<!docttype html>
-
-<html>
-  <head>
-  </head>
-  <body>
+<!doctype html>
 <?php
 include("../src/Flash.php");
 use flash\Flash as Flash;
 
 $flash = new Flash("../tpl");
-$flash->render("foo.tpl");
+echo $flash->render("foo.tpl");
 ?>
-  </body>
-</html>

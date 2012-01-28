@@ -1,3 +1,14 @@
-<h1>Banana</h1>
+<?php $extend = "index.tpl"?>
 
-<p><?php echo "foo"?></p>
+<?php $block("page_title");?>
+New Page Title
+<?php $endblock();?>
+
+<?php $block("title");?>
+Fancy New Title
+<?php $endblock();?>
+
+<?php $block("content");?>
+Foo's content.
+<?php $endblock();?>
+
