@@ -9,7 +9,7 @@ Fancy New Title
 <?php $endblock();?>
 
 <?php $block("content");?>
-Foo's content.
+Second dir's content.
 <?php $endblock();?>
 
 <?php $block_append("content");?>

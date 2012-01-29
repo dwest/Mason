@@ -1,6 +1,7 @@
 <?php
-/** Copyright (c) 2011, Daniel West
- *  All rights reserved.
+/**
+ * Copyright (c) 2011, Daniel West
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -33,18 +34,55 @@ require_once("util.php");
 
 class Flash {
 
-  protected $tplDir;
+  protected $tplDirs = array();
 
   public function __construct($tplDir="./tpl/")
   {
-    $this->tplDir = realpath($tplDir);
+    $this->addTplDir($tplDir);
+  }
+
+  /**
+   * addTplDir
+   *     Prepends the directory to the list of template search paths.
+   *
+   * @param String $tplDir - directory to prepend to search paths
+   * @return void
+   */
+  public function addTplDir($tplDir)
+  {
+    array_unshift($this->tplDirs, realpath($tplDir));
+  }
+
+  /**
+   * getFile
+   *     Disambiguates the template $name and returns the full path
+   * to the first template it encounters with that name.  Template
+   * directories are searched in the reverse order that they were
+   * added.
+   *
+   * @param String $name - template file name
+   * @return mixed - String containing full path on success, false
+   *   otherwise.
+   */
+  public function getFile($name)
+  {
+    foreach($this->tplDirs as $dir) {
+      $file = getFileRootedAtDir($dir, $name);
+      if(file_exists($file))
+        return $file;
+    }
+
+    return FALSE;
   }
 
   /**
    * render
-
    *     Render the template file and return it's output.  Will also
    * render any extended templates to produce the final output.
+   *
+   * @param String $file - name of the template file to render
+   * @param Array $context - template variables
+   * @return String - rendered template
    */
   public function render($file, Array $context = array())
   {
@@ -77,13 +115,32 @@ class Flash {
         });
     };
 
+    /**
+     * block_append
+     *     Same as block above, but concatenates the content to
+     * the block if it exists.  Sets the content if empty.
+     *
+     * @param String $name - block name
+     * @param Array $blocks - blocks array to store the content in.
+     */
+    $block_append = function($name) use (&$blocks) {
+      ob_start(function($output) use(&$blocks, $name){
+          if(!isset($blocks[$name]))
+            $blocks[$name] = $output;
+          else
+            $blocks[$name] .= $output;
+
+          return $blocks[$name];
+        });
+    };
+
     $endblock = function() {
       /* End the last opened block */
       ob_get_flush();
     };
     /* End util methods */
 
-    $file = getFileRootedAtDir($this->tplDir, $file);
+    $file = $this->getFile($file);
     /**
      *    Because extract is called after the utils are defined you *can*
      * override them.  Therefor you should be careful about using the
@@ -101,7 +158,7 @@ class Flash {
 
       if(!is_null($extend)) {
         $done = FALSE;
-        $file = getFileRootedAtDir($this->tplDir, $extend);
+        $file = $this->getFile($extend);
         $extend = NULL;
       }
     } while (!$done);
