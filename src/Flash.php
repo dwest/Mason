@@ -52,6 +52,33 @@ class Flash {
   {
     array_unshift($this->tplDirs, realpath($tplDir));
   }
+  
+  /**
+   * getFileRootedAtDir
+   *     Prevent malicious template file names from leaving the template
+   * directory.
+   *
+   * @param String $dir - the directory to constrain files to
+   * @param String $file - the filename
+   */
+  function getFileRootedAtDir($dir, $file)
+  {
+    $filePath = array();
+
+    foreach(explode("/", trim($file, "/")) as $element) {
+      switch($element) {
+      case ".":
+        break;
+      case "..":
+        array_pop($filePath);
+        break;
+      default:
+        array_push($filePath, $element);
+      }
+    }
+
+    return $dir . "/" . implode("/", $filePath);
+  }
 
   /**
    * getFile
@@ -67,7 +94,7 @@ class Flash {
   public function getFile($name)
   {
     foreach($this->tplDirs as $dir) {
-      $file = getFileRootedAtDir($dir, $name);
+      $file = $this->getFileRootedAtDir($dir, $name);
       if(file_exists($file))
         return $file;
     }
