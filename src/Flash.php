@@ -30,8 +30,6 @@
 
 namespace flash;
 
-require_once("util.php");
-
 class Flash {
 
   protected $tplDirs = array();
