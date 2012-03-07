@@ -97,7 +97,7 @@ class Flash {
         return $file;
     }
 
-    return FALSE;
+    throw new Exception("No such file: $file");
   }
 
   /**
