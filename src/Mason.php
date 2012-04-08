@@ -53,14 +53,13 @@ class Mason {
   }
   
   /**
-   * getFileRootedAtDir
    *     Prevent malicious template file names from leaving the template
    * directory.
    *
    * @param String $dir - the directory to constrain files to
    * @param String $file - the filename
    */
-  function getFileRootedAtDir($dir, $file)
+  protected function getFileRootedAtDir($dir, $file)
   {
     $filePath = array();
 
@@ -80,20 +79,19 @@ class Mason {
   }
 
   /**
-   * getFile
    *     Disambiguates the template $name and returns the full path
    * to the first template it encounters with that name.  Template
    * directories are searched in the reverse order that they were
    * added.
    *
-   * @param String $name - template file name
-   * @return mixed - String containing full path on success, false
-   *   otherwise.
+   * @param String $file - template file name
+   * @return String - string containing full path to the file on success
+   * @throws Exception - if no such file
    */
-  public function getFile($name)
+  public function getFile($file)
   {
     foreach($this->tplDirs as $dir) {
-      $file = $this->getFileRootedAtDir($dir, $name);
+      $file = $this->getFileRootedAtDir($dir, $file);
       if(file_exists($file))
         return $file;
     }
@@ -102,7 +100,21 @@ class Mason {
   }
 
   /**
-   * render
+   *     Get the directory that contains $file according to the file
+   * resolver.
+   *
+   * @param String $file - template file name
+   * @return String - directory containing the template file
+   * @throws Exception - if no such file
+   */
+  public function getDir($file) {
+    $path = explode("/", $this->getFile($file));
+    array_pop($path);
+    
+    return implode("/", $path);
+  }
+
+  /**
    *     Render the template file and return it's output.  Will also
    * render any extended templates to produce the final output.
    *
