@@ -2,16 +2,16 @@
 
 <?php $block("page_title");?>
 New Page Title
-<?php $endblock();?>
+<?php $end();?>
 
 <?php $block("title");?>
 Fancy New Title
-<?php $endblock();?>
+<?php $end();?>
 
 <?php $block("content");?>
 Second dir's content.
-<?php $endblock();?>
+<?php $end();?>
 
-<?php $block_append("content");?>
+<?php $append("content");?>
 And some extra content.
-<?php $endblock();?>
+<?php $end();?>

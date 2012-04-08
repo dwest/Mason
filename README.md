@@ -1,12 +1,12 @@
-Flash Templates
+Mason Templates
 ===============
 
 Need templates in your PHP project fast, but don't want to deal with
-the overhead of a big template library?  Well fear not!  Flash
+the overhead of a big template library?  Well fear not!  Mason
 Templates are a lightweight solution inspired by the famous [PHP
 Template Language](http://phptemplatinglanguage.com/) which has been
 used by PHP developers the world over since the very first release of
-PHP.  Flash templates make it easy to separate the concerns of your
+PHP.  Mason templates make it easy to separate the concerns of your
 view code from your application logic, all while maintaining the
 expressive power of PHP itself.
 
@@ -16,14 +16,14 @@ Examples
 Basic Operation
 ---------------
 
-It's easy to get started with Flash Templates, here is a minimal
+It's easy to get started with Mason Templates, here is a minimal
 example:
 
-    include("path/to/your/lib/dir/Flash.php");
-    use flash\Flash as Flash;
+    include("path/to/your/lib/dir/Mason.php");
+    use flash\Mason as Mason;
 
     /* Tell flash where to find our templates */
-    $flash = new Flash("path/to/your/template/directory");
+    $flash = new Mason("path/to/your/template/directory");
 
     /* Subdirectories are okay here too! */
     echo $flash->render("favs.tpl");
@@ -52,7 +52,7 @@ And in your template:
 Template Inheritance
 --------------------
 
-Flash also supports (single) template inheritance.  See the examples
+Mason also supports (single) template inheritance.  See the examples
 directory for a full example.
 
     index.tpl
@@ -91,9 +91,9 @@ Why
 Read the above link!  No, but seriously many people forget that PHP
 started out as a template language and get wrapped up in trying to
 write a complex meta-language, when all they really need is to echo
-some variables into a page.  Flash Templates are the minimal amount of
+some variables into a page.  Mason Templates are the minimal amount of
 wrapper code to take an array of values and dump them into a template
-file.  Flash Templates save you from having to write the (albeit
+file.  Mason Templates save you from having to write the (albeit
 small) amount of boilerplate required to use PHP as your template
 engine.  If you're starting a project from scratch, or considering
-replacing your template engine why not give Flash Templates a try?
+replacing your template engine why not give Mason Templates a try?

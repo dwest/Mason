@@ -1,8 +1,8 @@
 <?php
-include("../src/Flash.php");
-use flash\Flash as Flash;
+include("../src/Mason.php");
+use mason\Mason as Mason;
 
-$flash = new Flash("../tpl");
-$flash->addTplDir("./tpl");
-echo $flash->render("foo.tpl");
+$mason = new Mason("./tpl");
+echo $mason->render("foo.tpl");
+
 ?>

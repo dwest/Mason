@@ -28,9 +28,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace flash;
+namespace mason;
 
-class Flash {
+require_once("TemplateMethods.php");
+
+class Mason {
 
   protected $tplDirs = array();
 
@@ -40,8 +42,7 @@ class Flash {
   }
 
   /**
-   * addTplDir
-   *     Prepends the directory to the list of template search paths.
+   * Prepends the directory to the list of template search paths.
    *
    * @param String $tplDir - directory to prepend to search paths
    * @return void
@@ -112,85 +113,14 @@ class Flash {
   public function render($file, Array $context = array())
   {
     /**
-     *   Some functions and variables that need to be in scope
-     * inside the template.
+     * Bootstrap the render call to call the template render method.
      */
-    $extend = NULL;
+    $tm = new TemplateMethods();
+    extract($tm->getMethods());
 
-    /* Stores the blocks content */
-    $blocks = array();
-
-    /*
-     * block
-     *    Starts the output buffer and stores the blocks' content
-     * in the blocks array as soon as it encounters and endblock.
-     * If the block value was already defined it drops the content
-     * on the floor.
-     *
-     * @param String $name - block name
-     * @param Array $blocks - blocks array to store the content in.
-     */
-    $block = function($name) use (&$blocks) {
-      /* Using ob callback to store the block content. */
-      ob_start(function($output) use(&$blocks, $name){
-          if(!isset($blocks[$name]))
-            $blocks[$name] = $output;
-
-          return $blocks[$name];
-        });
-    };
-
-    /**
-     * block_append
-     *     Same as block above, but concatenates the content to
-     * the block if it exists.  Sets the content if empty.
-     *
-     * @param String $name - block name
-     * @param Array $blocks - blocks array to store the content in.
-     */
-    $block_append = function($name) use (&$blocks) {
-      ob_start(function($output) use(&$blocks, $name){
-          if(!isset($blocks[$name]))
-            $blocks[$name] = $output;
-          else
-            $blocks[$name] .= $output;
-
-          return $blocks[$name];
-        });
-    };
-
-    $endblock = function() {
-      /* End the last opened block */
-      ob_get_flush();
-    };
-    /* End util methods */
-
-    $file = $this->getFile($file);
-    /**
-     *    Because extract is called after the utils are defined you *can*
-     * override them.  Therefor you should be careful about using the
-     * names $block, $endblock, $blocks, or $extends in your context
-     * unless you really want to replace them.
-     */
-    extract($context);
-
-    /* Process at least once, keep going until we stop extending templates */
-    do {
-      $done = TRUE;
-      ob_start();
-      include($file);
-      $output = ob_get_clean();
-
-      if(!is_null($extend)) {
-        $done = FALSE;
-        $file = $this->getFile($extend);
-        $extend = NULL;
-      }
-    } while (!$done);
-
+    $output = $render($this, $file, $context);
     return $output;
   }
-
 }
 
 //?>
