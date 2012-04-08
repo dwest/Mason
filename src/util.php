@@ -58,7 +58,7 @@ function Y($le) {
 function curry($function) {
   $args = array_slice(func_get_args(), 1);
   $reflect = new \ReflectionFunction($function);
-  $numArgs = sizeof($reflect->getParameters());
+  $numArgs = $reflect->getNumberOfRequiredParameters();
 
   if(sizeof($args) >= $numArgs)
     return call_user_func_array($function, $args);
