@@ -32,7 +32,6 @@ namespace mason;
 
 require_once("util.php");
 
-class Blocks extends \ArrayObject {}
 /**
  * Wrapper class for all of the available template methods.  Use
  * getMethods to obtain a copy of these methods for inclusion in a
@@ -105,7 +104,7 @@ class TemplateMethods {
              * func_get_args.  Namely that we aren't allowed to pass
              * by reference and use that function to simulate varargs.
              */
-            $blocks = new Blocks();
+            $blocks = new \ArrayObject;
 
             foreach($methods as $name=>$method) {
               if(in_array($name, array('block', 'prepend', 'append')))

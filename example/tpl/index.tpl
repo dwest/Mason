@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title><?php $block("page_title")?> Default Page Title <?php $end("page_title")?></title>
+    <title><?php $block("page_title")?> Examples <?php $end("page_title")?></title>
   </head>
   <body>
     <h1>Examples</h1>
