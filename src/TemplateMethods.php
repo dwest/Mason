@@ -113,7 +113,8 @@ class TemplateMethods {
               else
                 $$name = $method;
             }
-            
+            $render = $render($filefinder);
+
             $file = $filefinder->getFile($file);
 
             /**
