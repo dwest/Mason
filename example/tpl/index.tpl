@@ -16,5 +16,6 @@
                                                                   "Warm woolen mittens",
                                                                   "Brown paper packages tied up with strings",
                                                                   )))?>
+    <?php echo $render("example4b.tpl")?>
   </body>
 </html>

@@ -1,7 +1,7 @@
 <?php $extend = "example.tpl"?>
 
 <?php $block("heading")?>
-Example 1 - Override Blocks
+Example #1 - Override Blocks
 <?php $end("heading")?>
 
 <?php $block("content")?>

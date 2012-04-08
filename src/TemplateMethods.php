@@ -74,7 +74,7 @@ class TemplateMethods {
           if(!isset($blocks[$name]))
             $blocks[$name] = $output;
           else
-            $blocks[$name] .= $output;
+            $blocks[$name] = $output . $blocks[$name];
 
           return $blocks[$name];
         });
@@ -85,7 +85,7 @@ class TemplateMethods {
           if(!isset($blocks[$name]))
             $blocks[$name] = $output;
           else
-            $blocks[$name] = $output . $blocks[$name];
+            $blocks[$name] = $blocks[$name] . $output;
 
           return $blocks[$name];
         });
