@@ -130,6 +130,7 @@ class TemplateMethods {
             do {
               $done = TRUE;
               ob_start();
+              $filefinder->beforeInclude($file);
               include($file);
               $output = ob_get_clean();
 

@@ -36,6 +36,8 @@ class Mason {
 
   protected $tplDirs = array();
 
+  protected $before;
+
   public function __construct($tplDir="./tpl/")
   {
     $this->addTplDir($tplDir);
@@ -132,6 +134,30 @@ class Mason {
 
     $output = $render($this, $file, $context);
     return $output;
+  }
+
+  /**
+   *     Set the callback to call before a file is included.  The name
+   * of the file to include is passed as the first parameter.
+   *
+   * @param Callable $callback - function to call before a file is
+   *   included
+   */
+  public function setBeforeInclude($callback) {
+    if(is_callable($callback))
+      $this->before = $callback;
+    else
+      throw \Exception("Your callback is not callable!");
+  }
+
+  /**
+   *     Call the user defined callback before inclusion.
+   *
+   * @param String $file - name of the file that is included
+   */
+  public function beforeInclude($file) {
+    if(is_callable($this->before))
+      call_user_func($this->before, $file);
   }
 }
 
