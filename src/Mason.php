@@ -91,9 +91,9 @@ class Mason {
   public function getFile($file)
   {
     foreach($this->tplDirs as $dir) {
-      $file = $this->getFileRootedAtDir($dir, $file);
-      if(file_exists($file))
-        return $file;
+      $f = $this->getFileRootedAtDir($dir, $file);
+      if(file_exists($f))
+        return $f;
     }
 
     throw new \Exception("No such file: $file");
