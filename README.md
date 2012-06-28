@@ -20,7 +20,7 @@ It's easy to get started with Mason Templates, here is a minimal
 example:
 
     include("path/to/your/lib/dir/Mason.php");
-    use flash\Mason as Mason;
+    use mason\Mason as Mason;
 
     /* Tell flash where to find our templates */
     $flash = new Mason("path/to/your/template/directory");
