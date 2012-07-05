@@ -44,7 +44,7 @@ And in your template:
     <p>Hi, my name is <?=$name?>, and here are a few of my favorite things.</p>
     
     <ul>
-        <?php foreach($favorites as $item) ?>
+        <?php foreach($favorites as $item): ?>
         <li><?=$item?></li>
         <?php endforeach; ?>
     </ul>
