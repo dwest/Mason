@@ -20,7 +20,7 @@ It's easy to get started with Mason Templates, here is a minimal
 example:
 
     include("path/to/your/lib/dir/Mason.php");
-    use flash\Mason as Mason;
+    use mason\Mason as Mason;
 
     /* Tell flash where to find our templates */
     $flash = new Mason("path/to/your/template/directory");
@@ -44,7 +44,7 @@ And in your template:
     <p>Hi, my name is <?=$name?>, and here are a few of my favorite things.</p>
     
     <ul>
-        <?php foreach($favorites as $item) ?>
+        <?php foreach($favorites as $item): ?>
         <li><?=$item?></li>
         <?php endforeach; ?>
     </ul>
@@ -60,13 +60,13 @@ directory for a full example.
     <title>
         <?php $block("title");?>
             Default Title
-        <?php $endblock();?>
+        <?php $end();?>
     </title>
     ...
     <body>
         <?php $block("content");?>
             Default Content.
-        <?php $endblock();?>
+        <?php $end();?>
     </body>
     ...
 
@@ -79,11 +79,11 @@ And in your derived template:
     
     <?php $block("title");?>
     Derived and contrived
-    <?php $endblock();?>
+    <?php $end();?>
 
     <?php $block("content");?>
     New content for derived_and_contrived.tpl.
-    <?php $endblock();?>
+    <?php $end();?>
 
 Why
 ===
