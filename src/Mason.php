@@ -30,13 +30,18 @@
 
 namespace mason;
 
+require_once("FileFinder.php");
 require_once("TemplateMethods.php");
 
-class Mason {
+class Mason
+implements FileFinder
+{
 
   protected $tplDirs = array();
 
   protected $before;
+
+  protected $finder;
 
   public function __construct($tplDir="./tpl/")
   {
@@ -132,7 +137,7 @@ class Mason {
     $tm = new TemplateMethods();
     extract($tm->getMethods());
 
-    $output = $render($this, $file, $context);
+    $output = $render($this->getFileFinder(), $file, $context);
     return $output;
   }
 
@@ -159,6 +164,34 @@ class Mason {
     if(is_callable($this->before))
       call_user_func($this->before, $file);
   }
+
+  /**
+   *     Get the class used to find files.  If you set the class to
+   * something other than $this mason object then you should add your
+   * template directories through that object instead of through
+   * mason.
+   *
+   * @return FileFinder - the object used to find template files
+   */
+  public function getFileFinder() {
+    if(isset($this->finder))
+      return $this->finder;
+
+    return $this;
+  }
+
+  /**
+   * If you replace the object used to find template files then you
+   * should set your template directories through that objects specific
+   * interface.
+   *
+   * @param FileFinder $finder - the object used to find template
+   * files
+   */
+  public function setFileFinder(FileFinder $finder) {
+    $this->finder = $finder;
+  }
+  
 }
 
 //?>
