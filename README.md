@@ -4,7 +4,7 @@ Mason Templates
 Need templates in your PHP project fast, but don't want to deal with
 the overhead of a big template library?  Well fear not!  Mason
 Templates are a lightweight solution inspired by the famous [PHP
-Template Language](http://phptemplatinglanguage.com/) which has been
+Template Language](http://php.net/) which has been
 used by PHP developers the world over since the very first release of
 PHP.  Mason templates make it easy to separate the concerns of your
 view code from your application logic, all while maintaining the
