@@ -30,7 +30,7 @@
 
 namespace mason;
 
-require_once("util.php");
+require_once(dirname(__FILE__)."/util.php");
 
 /**
  * Wrapper class for all of the available template methods.  Use

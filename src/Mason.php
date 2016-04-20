@@ -30,8 +30,8 @@
 
 namespace mason;
 
-require_once("FileFinder.php");
-require_once("TemplateMethods.php");
+require_once(dirname(__FILE__)."/FileFinder.php");
+require_once(dirname(__FILE__)."/TemplateMethods.php");
 
 class Mason
 implements FileFinder
